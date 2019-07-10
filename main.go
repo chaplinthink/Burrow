@@ -47,7 +47,7 @@ import (
 	"github.com/linkedin/Burrow/core"
 )
 
-// exitCode wraps a return value for the application
+// exitCode wraps a return value for the application  结构体
 type exitCode struct{ Code int }
 
 func handleExit() {
@@ -66,11 +66,11 @@ func handleExit() {
 }
 
 func main() {
-	// This makes sure that we panic and run defers correctly
-	defer handleExit()
-
-	runtime.GOMAXPROCS(runtime.NumCPU())
-
+	// This makes sure that we panic and run defers correctly 
+	defer handleExit()  //go的 defer语句是用来延迟执行函数的，而且延迟发生在调用函数 return 之后
+	// 设置最大的可同时使用的 CPU 核数, runtime.NumCPU  返回当前系统的 CPU 核数量		
+	runtime.GOMAXPROCS(runtime.NumCPU())	
+	
 	// The only command line arg is the config file
 	configPath := flag.String("config-dir", ".", "Directory that contains the configuration file")
 	flag.Parse()
