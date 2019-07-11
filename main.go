@@ -71,13 +71,13 @@ func main() {
 	// 设置最大的可同时使用的 CPU 核数, runtime.NumCPU  返回当前系统的 CPU 核数量		
 	runtime.GOMAXPROCS(runtime.NumCPU())	
 	
-	// The only command line arg is the config file
+	// The only command line arg is the config file 命令行参数  . 是默认值，第三个参数代表提示信息  错误提示或者 使用（-h， -help）
 	configPath := flag.String("config-dir", ".", "Directory that contains the configuration file")
 	flag.Parse()
 
 	// Load the configuration from the file
-	viper.SetConfigName("burrow")
-	viper.AddConfigPath(*configPath)
+	viper.SetConfigName("burrow")  //读取配置文件名称
+	viper.AddConfigPath(*configPath) // 读取配置文件路径，因为 flag.String 返回的是指针，获取值使用  *configPath
 	fmt.Fprintln(os.Stderr, "Reading configuration from", *configPath)
 	err := viper.ReadInConfig()
 	if err != nil {
